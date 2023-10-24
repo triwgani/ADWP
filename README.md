@@ -95,3 +95,28 @@ df.head(5)
 ```
 ![](pict04.png)
 
+## Problem and Analysis
+>### Case-1
+> At the end of this year, the company will give prizes to customers who win the Year-End Festival competition. The Marketing Team needs help to determine the estimated prize that will be given to the winner of the competition later. These prizes will be taken from the TOP 5 Products from the Mobiles & Tablets Category during 2022, with the highest total sales quantity (valid = 1).
+
+```Sh
+#Storing the data in Pandas Data Frame
+data1 = pd.DataFrame(\
+                     #Filtering data with is_valid =1                     df[(df['is_valid']==1) &\
+                        #Filtering data with category of Mobiles and Tablets
+                        (df['category']=='Mobiles & Tablets') &\
+                        #Filtering data for transaction during 2022
+                        ((df['order_date'] >= '2022-01-01') & (df['order_date'] <= '2022-12-31'))]\
+                     #Grouping the data
+                     .groupby(by=["sku_name"])["qty_ordered"]\
+                     #Summing the the quantity order based on the corresponding sku_name
+                     .sum()\
+                     #Sorting the data in descending way
+                     .sort_values(ascending=False)\
+                     #Selecting the top 5 product with the most quantity number
+                     .head(5)\
+                     #resetting the header
+                     .reset_index(name='qty_2022'))
+data1
+```
+
