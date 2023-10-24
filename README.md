@@ -48,3 +48,48 @@ df_sd.head(10)
 ```
 ![](pict03.png)
 
+We also need to analyze the connection between the 4 tables in order to make further analysis and synthesize insights. Therefore, we need to create possible joins them.
+
+```Sh
+#Running SQL in Colab
+from sqlite3 import connect
+
+# Creating connection with sqlite
+conn = connect(':memory:')
+
+# dumping dataframe into a table in sqlite
+df_od.to_sql('order_detail',conn, index=False, if_exists='replace')
+df_pd.to_sql('payment_detail', conn, index=False, if_exists='replace')
+df_sd.to_sql('sku_detail', conn, index=False, if_exists='replace')
+df_cd.to_sql('customer_detail', conn, index=False, if_exists='replace')
+df_od.to_sql?
+pd.read_sql('select * from sku_detail',conn)
+df_sd.to_sql('sku_detail', conn, index=True, if_exists='replace')
+pd.read_sql('select * from sku_detail', conn)
+df_sd.to_sql('sku_detail', conn, index=False, if_exists='replace')
+pd.read_sql('select * from sku_detail', conn).head()
+
+# Joining datasets using Query SQL into a table
+df = pd.read_sql("""
+SELECT
+    order_detail.*,
+    payment_detail.payment_method,
+    sku_detail.sku_name,
+    sku_detail.base_price,
+    sku_detail.cogs,
+    sku_detail.category,
+    customer_detail.registered_date
+FROM order_detail
+LEFT JOIN payment_detail
+    on payment_detail.id = order_detail.payment_id
+LEFT JOIN sku_detail
+    on sku_detail.id = order_detail.sku_id
+LEFT JOIN customer_detail
+    on customer_detail.id = order_detail.customer_id
+""",conn)
+
+# Displaying the first 10 rows of the joined datasets
+df.head(10)
+```
+![](pict04.png)
+
