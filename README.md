@@ -62,7 +62,7 @@ df_od.to_sql('order_detail',conn, index=False, if_exists='replace')
 df_pd.to_sql('payment_detail', conn, index=False, if_exists='replace')
 df_sd.to_sql('sku_detail', conn, index=False, if_exists='replace')
 df_cd.to_sql('customer_detail', conn, index=False, if_exists='replace')
-df_od.to_sql?
+df_od.to_sql
 pd.read_sql('select * from sku_detail',conn)
 df_sd.to_sql('sku_detail', conn, index=True, if_exists='replace')
 pd.read_sql('select * from sku_detail', conn)
@@ -87,9 +87,11 @@ LEFT JOIN sku_detail
 LEFT JOIN customer_detail
     on customer_detail.id = order_detail.customer_id
 """,conn)
+```
 
-# Displaying the first 10 rows of the joined datasets
-df.head(10)
+Displaying the first 5 rows of the joined datasets
+```Sh
+df.head(5)
 ```
 ![](pict04.png)
 
