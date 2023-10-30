@@ -341,8 +341,7 @@ data18.plot(x='month',
     rot = 90,  table = False,
     secondary_y = False)
 ```
-
-![](pict11.png)
+![](pict12.png)
 
 >### Case–8
 > Given the same condition above, please provide Average daily sales weekends (Saturday and Sunday) vs. average daily sales weekdays (Monday-Friday) for the entire 3 months.
