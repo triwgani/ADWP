@@ -224,7 +224,7 @@ data9 = data8[['customer_id','registered_date']].drop_duplicates()
 The above solution create a file name audience_list.csv.
 
 >### Case–5
-> Next month an Annual Report will submitted to Investors. Related to that, the management and C-Leveles need to provided the Overall Profit Growth (%) 2021 vs 2022 as result of annual sales performance.
+> An Annual Report will submitted to Investors in the following month. Related to that, the management and C-Leveles need to provided the Overall Profit Growth (%) 2021 vs 2022 as result of annual sales performance.
 
 ```Sh
 #Calculating profit
@@ -253,4 +253,31 @@ pd.DataFrame(data=data12, index=[0]
 Based on the result, the company managed to yield around 5.15 Billion of profit in 2022 indicating a significant growth of around 2.1 Billion when compared to the previous year with 3.04 Billion. This equivalent of 69.27% growth YoY
 
 >### Case–6
-> Next month an Annual Report will submitted to Investors. The management and C-Leveles need also to provided the Profit Growth (%) by Product Category in 2021 vs 2022.
+> An Annual Report will submitted to Investors in the following month. The Management and C-Levels need also to provided the Profit Growth (%) by Product Category in 2021 vs 2022.
+
+```Sh
+#Using Groupby to do Summing
+data13 = pd.DataFrame(data10\
+    .groupby(by="category")["profit"].sum()\
+    .sort_values(ascending=False)\
+    .reset_index(name='profit_2022'))
+data13
+data14 = pd.DataFrame(data11\
+    .groupby(by="category")["profit"].sum()\
+    .sort_values(ascending=False)\
+    .reset_index(name='profit_2021'))
+data14
+#Combining data
+data15 = data14.merge(data13, left_on = 'category', right_on = 'category')
+data15
+#Melakukan kalkulasi
+data15['Growth (Value)'] = data15['profit_2022']-data15['profit_2021']
+    data15['Growth (%)'] = round(data15['Growth (Value)']/data15['profit_2021']*100,2)
+    data15.sort_values(by=['Growth (%)'], ascending = False, inplace = True)
+data15
+```
+The above solution produced the following result:
+
+![](pict09.png)
+
+The table compare the profit between 2021 and 2022, the profit  difference or (growth) value, as well as the Percentage of growth.
