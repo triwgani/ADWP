@@ -123,3 +123,59 @@ data1
 ![](pict05.png)
 
 Based on the result, the TOP 5 Products from the Mobiles & Tablets Category during 2022, with the highest total  sales quantity (valid = 1) are shown above. The Marketing Team can determine the estimated prize that will be  given to the winner of the competition based on the provided solution.
+
+>### Case-2
+> Following up on the joint meeting of the Werehouse Team and Marketing Team, the Team found that there was still a lot of product stock in the Beauty & Grooming Category at the end of 2022. The Team asked for help to check the sales data for this category for 2021 in terms of sales quantity. Our provisional estimate is that there has been a decrease in sales quantity in 2022 compared to 2021. (Please also display data for the 15 categories).
+
+```Sh
+#Storing the data into Pandas DataFrame
+    data2 = pd.DataFrame(\
+    #Filtering Data with is_valid=1
+    df[(df['is_valid']==1) &\
+    #Filtering data for transaction during 2021
+    ((df['order_date'] >= '2021-01-01') & 
+    (df['order_date'] <= '2021-12-31'))]\
+    #grouping the data
+    .groupby(by=["category"])["qty_ordered"]\
+    #Summing the quantity
+    .sum()\
+    #Sorting the data
+    .sort_values(ascending=False)\
+    #Resetting header
+    .reset_index(name='qty_2021'))
+data2
+
+#Storing data into Pandas DataFrame
+    data3 = pd.DataFrame(\
+    #Filtering Data with is_valid=1
+    df[(df['is_valid']==1) &\
+    #Filtering data for transaction during 2022
+    ((df['order_date'] >= '2022-01-01') & 
+    (df['order_date'] <= '2022-12-31'))]\
+    #grouping data
+    .groupby(by=["category"])["qty_ordered"]\
+    #summing the data
+    .sum()\
+    #Sorting the data
+    .sort_values(ascending=False)\
+    #Resetting header
+    .reset_index(name='qty_2022'))
+data3
+
+data4 = pd.merge(data2,
+    data3,
+    left_on='category',
+    right_on='category’)
+    data4
+    #Growth = Last Year – Previous 
+    Year
+    data4['qty_growth'] = 
+    data4['qty_2022'] - data4['qty_2021']
+data4
+```
+![](pict06.png)
+
+The above syntax results the data of 15 Product categories in which some of them experienced decrement in Sales Quantity, while others experienced the other direction. Based on the result, Soghaat experienced the biggest decrement (most negative growth) with -5032 Sales Quantity, while the Superstore experienced the biggest increment (most positive growth) with 22631 Sales Quantity.
+
+>### Case-3
+> If there is indeed a decrease in the quantity of sales in the Beauty & Grooming category, the Team asked for assistance in providing data on the TOP 20 product names that have experienced the highest decline in 2022 when compared to 2021. We will use this as material for discussion at the next meeting.
