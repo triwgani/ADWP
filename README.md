@@ -442,7 +442,7 @@ data26.plot(x='month',
 ```
 The above solution provides monthly data AOV (in table and Chart) during the year 2021 & 2022:
 
-
+![](pict14.png)
 
 >### Case-10
 >In order to understand a customer's purchasing power, the data of total annual AOV 2021 vs 2022 is required.
@@ -463,6 +463,7 @@ pd.DataFrame(data=data27, index=[0])
 
 The above solution provides the following result:
 
+![](pict15.png)
 
 ## Conlusion
 In conclusion, based on Cases provided ( Case 1 to Case 10), we can utilize Python not only to display numbers but also to find insights that can be useful in order to address any related issue. Python enables data analyst to conduct calculation and analysis that involves complex mathematical and query method. As well as displaying charts or visuals. This analytical tool is useful to provide a better understanding of the on-going firm’s performance, as well as to craft a better data-driven strategy
