@@ -281,3 +281,25 @@ The above solution produced the following result:
 ![](pict09.png)
 
 The table compare the profit between 2021 and 2022, the profit  difference or (growth) value, as well as the Percentage of growth.
+
+```Sh
+data15.plot(x='category',
+    y=['Growth (%)'],
+    kind='bar',
+    grid = True,
+    title = 'Growth 2021 vs 2022',
+    xlabel = 'Category',
+    ylabel = 'Growth (%)',
+    figsize=(12,7),
+    rot = 90,
+    table = False,
+    sort_columns = False,
+    secondary_y = False)
+```
+
+Plotting the table into chart, we can better compare the profit among the categories
+
+![](pict10.png)
+
+Based on the result, there are 15 product categories shown in the chart. There are 11 of them experienced positive growth with Superstore providing the highest percentage of growth 346.2 % that equals to almost 175 Millions profit. On the contrary, Books category providing the lowest growth of -50.76% that equals to 4.2 Millions lost.
+
