@@ -345,3 +345,34 @@ data18.plot(x='month',
 
 >### Case–8
 > Given the same condition above, please provide Average daily sales weekends (Saturday and Sunday) vs. average daily sales weekdays (Monday-Friday) for the entire 3 months.
+
+```Sh
+#Storing data into Pandas DataFrame
+data19 = df[\
+    #Filtering data with paid transaction (is_valid=1) on weekend
+    (df['is_valid']==1) &\
+    (df['day'].isin(['Saturday','Sunday'])) &\
+    #Filtering data for transaction during 2022
+    ((df['order_date'] >= '2022-10-01') & (df['order_date'] <= '2022-12-31'))]
+#Storing data into Pandas DataFrame
+data20 = df[\
+    #Filtering data with paid transaction (is_valid=1) on weekdays
+    (df['is_valid']==1) &\
+    (df['day'].isin(['Monday','Tuesday','Wednesday','Thusday','Friday'])) &\
+    #Filtering data for transaction during 2022
+    ((df['order_date'] >= '2022-10-01') & (df['order_date'] <= '2022-12-31'))]
+data21 = {\
+    'Periode':'Total 3 months',\
+    'Avg Weekend Sales': round(data19['before_discount'].mean(),2), \
+    'Avg Weekdays Sales': round(data20['before_discount'].mean(),2),\
+    'Diff (Value)': round(data19['profit'].mean() - data20['profit'].mean(),2),\
+    'Diff (%)': pd.Series(round(((data19['profit'].mean() - data20['profit'].mean())/data19['profit'].mean())*100,2), 
+dtype=str)+'%'
+    }
+pd.DataFrame(data=data21, index=[0])
+```
+The above solution provides the following output:
+
+![](pict13.png)
+
+Based on the comparison, there is no significant impact from the weekend campaign. On the contrary, the sales in weekend tend to decrease around 2.26%. We need to change or improve the weekend campaign.
