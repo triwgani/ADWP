@@ -223,3 +223,32 @@ data9 = data8[['customer_id','registered_date']].drop_duplicates()
 ```
 The above solution create a file name audience_list.csv.
 
+>### Case–5
+> Next month an Annual Report will submitted to Investors. Related to that, the management and C-Leveles need to provided the Overall Profit Growth (%) 2021 vs 2022 as result of annual sales performance.
+
+```Sh
+#Calculating profit
+    df['profit'] = df['after_discount'] - df['cogs’]
+    #Storing data into Pandas DataFrame
+    data10 = df[\
+    (df['is_valid']==1) &\
+    ((df['order_date'] >= '2022-01-01') & (df['order_date'] <= '2022-12-31'))]
+    #Storing data into Pandas DataFrame
+    data11 = df[\
+    (df['is_valid']==1) &\
+    ((df['order_date'] >= '2021-01-01') & (df['order_date'] <= '2021-12-31'))]
+    #Creating Dataframe and Summary
+    data12 = {\
+    'Period Profit':'Total',\
+    '2021': data11['profit'].sum(), \
+    '2022': data10['profit'].sum(),\
+    'Growth (Value)': data10['profit'].sum() - data11['profit'].sum(),\
+    'Growth': pd.Series(round(((data10['profit'].sum() - data11['profit'].sum())/data11['profit'].sum())*100,2), dtype=str)+'%'
+    }
+pd.DataFrame(data=data12, index=[0]
+```
+![](pict08.png)
+Based on the result, the company managed to yield around 5.15 Billion of profit in 2022 indicating a significant growth of around 2.1 Billion when compared to the previous year with 3.04 Billion. This equivalent of 69.27% growth YoY
+
+>### Case–6
+>(6) The management and C-Leveles need also to provided the Profit Growth (%) by Product Category in 2021 vs 2022.
