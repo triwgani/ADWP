@@ -207,3 +207,19 @@ data7
 
 The above solution results the data of 20 Product name based on Category of Beauty and Grooming. All of products in the category experienced decrement in Sales Quantity. Based on the result, kcc_krone deal experienced the biggest decrement with -1135 Sales Quantity, followed by kcc_glamour deal with -360, and kcc_Buy 2 Frey Air Freshener* with -266 in the third place. The others are depicted in the table.
 
+>### Case–4
+>Regarding the company's anniversary in the next 2 months, the Digital Marketing Team will provide promo information for customers at the end of this month. The customers that will meet our criteria are those who have checked out but have not made a payment during 2022. The required data is the Customer ID and Registered Date. Providing the corresponding data would be a great assistance to the Digital Marketing Team
+
+```Sh
+data8 = df[\
+    (df['is_gross']==1) &\
+    (df['is_valid']==0) &\
+    (df['is_net']==0) &\
+    ((df['order_date'] >= '2022-01-01') & (df['order_date'] <= '2022-12-31’))]
+data9 = data8[['customer_id','registered_date']].drop_duplicates()
+    from google.colab import files
+    data9.to_csv('audience_list.csv', encoding = 'utf-8-sig',index=False)
+    files.download('audience_list.csv')
+```
+The above solution create a file name audience_list.csv.
+
