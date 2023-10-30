@@ -469,3 +469,6 @@ The above solution provides the following result:
 In conclusion, based on Cases provided ( Case 1 to Case 10), we can utilize Python not only to display numbers but also to find insights that can be useful in order to address any related issue. Python enables data analyst to conduct calculation and analysis that involves complex mathematical and query method. As well as displaying charts or visuals. This analytical tool is useful to provide a better understanding of the on-going firm’s performance, as well as to craft a better data-driven strategy
 
 ## Referrences
+1. Python 3.11.4 Documentation: https://docs.python.org/3/
+2. Full stack Intensive Bootcamp for Data Analyst by MySkill.id (Python Part 1 to 3)
+3. https://www.kaggle.com/datasets/zusmani/pakistans-largest-ecommerce-dataset
