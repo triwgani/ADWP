@@ -120,3 +120,6 @@ data1 = pd.DataFrame(\
 data1
 ```
 
+![](pict05.png)
+
+Based on the result, the TOP 5 Products from the Mobiles & Tablets Category during 2022, with the highest total  sales quantity (valid = 1) are shown above. The Marketing Team can determine the estimated prize that will be  given to the winner of the competition based on the provided solution.
