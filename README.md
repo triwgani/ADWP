@@ -253,4 +253,4 @@ pd.DataFrame(data=data12, index=[0]
 Based on the result, the company managed to yield around 5.15 Billion of profit in 2022 indicating a significant growth of around 2.1 Billion when compared to the previous year with 3.04 Billion. This equivalent of 69.27% growth YoY
 
 >### Case–6
->(6) The management and C-Leveles need also to provided the Profit Growth (%) by Product Category in 2021 vs 2022.
+> (6) Next month an Annual Report will submitted to Investors. The management and C-Leveles need also to provided the Profit Growth (%) by Product Category in 2021 vs 2022.
