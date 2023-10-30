@@ -376,3 +376,93 @@ The above solution provides the following output:
 ![](pict13.png)
 
 Based on the comparison, there is no significant impact from the weekend campaign. On the contrary, the sales in weekend tend to decrease around 2.26%. We need to change or improve the weekend campaign.
+
+>### Case-9
+> In order to understand a customer's purchasing power, the data of AOV (Average Order Value or Total sales / Total Order) every month during 2021 vs 2022 is required.
+
+```Sh
+data22 = pd.DataFrame(df[(df['is_valid']==1) & ((df['order_date'] >= '2022-01-01') & (df['order_date'] <= '2022-12-31'))]\
+    .groupby(by=['month_num','month'])["after_discount"].sum()\
+    .round()\
+    .reset_index(name='sales_2022'))\
+    .sort_values(by=['month_num'],ascending=True)\
+    .head(12)
+data23 = pd.DataFrame(df[(df['is_valid']==1) & ((df['order_date'] >= '2022-01-01') & (df['order_date'] <= '2022-12-31'))]\
+    .groupby(by=['month_num','month'])["id"].nunique()\
+    .round()\
+    .reset_index(name='order_2022'))\
+    .sort_values(by=['month_num'],ascending=True)\
+    .head(12)
+data24 = pd.DataFrame(df[(df['is_valid']==1) & ((df['order_date'] >= '2021-01-01') & (df['order_date'] <= '2021-12-31'))]\
+    .groupby(by=['month_num','month'])["after_discount"].sum()\
+    .round()\
+    .reset_index(name='sales_2021'))\
+    .sort_values(by=['month_num'],ascending=True)\
+    .head(12)
+data25 = pd.DataFrame(df[(df['is_valid']==1) & ((df['order_date'] >= '2021-01-01') & (df['order_date'] <= '2021-12-31'))]\
+    .groupby(by=['month_num','month'])["id"].nunique()\
+    .round()\
+    .reset_index(name='order_2021'))\
+    .sort_values(by=['month_num'],ascending=True)\
+    .head(12)
+from sqlite3 import connect
+    conn = connect(':memory:')
+    data22.to_sql('sales_2022', conn, index=False, if_exists='replace')
+    data23.to_sql('order_2022', conn, index=False, if_exists='replace')
+    data24.to_sql('sales_2021', conn, index=False, if_exists='replace')
+    data25.to_sql('order_2021', conn, index=False, if_exists='replace')
+    data26 = pd.read_sql("""
+SELECT
+    sales_2021.*,
+    order_2021.order_2021,
+    sales_2022.sales_2022,
+    order_2022.order_2022
+FROM sales_2022
+LEFT JOIN order_2022
+    on order_2022.month_num = sales_2022.month_num
+LEFT JOIN sales_2021
+    on sales_2021.month_num = sales_2022.month_num
+LEFT JOIN order_2021
+    on order_2021.month_num = sales_2022.month_num
+""", conn)
+data26['AOV 2021'] = round(data26['sales_2021']/data26['order_2021'],2)
+data26['AOV 2022'] = round(data26['sales_2022']/data26['order_2022'],2)
+data26['Diff AOV (value)']= data26['AOV 2022']-data26['AOV 2021']
+data26['Diff AOV (%)'] = round((data26['AOV 2022']-data26['AOV 2021'])/data26['AOV 2021']*100,2)
+data26.plot(x='month',
+    y=['AOV 2021','AOV 2022'],
+    kind='bar',
+    grid = True,
+    xlabel = 'Month',
+    ylabel = 'AOV',
+    figsize=(12,7),
+    rot = 35,
+    table = False,
+    secondary_y = False)
+```
+The above solution provides monthly data AOV (in table and Chart) during the year 2021 & 2022:
+
+
+
+>### Case-10
+>In order to understand a customer's purchasing power, the data of total annual AOV 2021 vs 2022 is required.
+>
+```Sh
+data26.columns
+    aov_2021 = round(data26['sales_2021'].sum()/data26['order_2021'].sum(),2)
+    aov_2022 = round(data26['sales_2022'].sum()/data26['order_2022'].sum(),2)
+data27 = {\
+    'Periode':'Total',\
+    'AOV 2021': aov_2021, \
+    'AOV 2022': aov_2022, \
+    'Growth (value)': aov_2022-aov_2021,\
+    'Growth': pd.Series(round((aov_2022-aov_2021)/aov_2021*100,2), dtype=str)+'%'
+    }
+pd.DataFrame(data=data27, index=[0])
+```
+
+The above solution provides the following result:
+
+
+## Conlusion
+In conclusion, based on Cases provided ( Case 1 to Case 10), we can utilize Python not only to display numbers but also to find insights that can be useful in order to address any related issue. Python enables data analyst to conduct calculation and analysis that involves complex mathematical and query method. As well as displaying charts or visuals. This analytical tool is useful to provide a better understanding of the on-going firm’s performance, as well as to craft a better data-driven strategy
