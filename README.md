@@ -303,3 +303,35 @@ Plotting the table into chart, we can better compare the profit among the catego
 
 Based on the result, there are 15 product categories shown in the chart. There are 11 of them experienced positive growth with Superstore providing the highest percentage of growth 346.2 % that equals to almost 175 Millions profit. On the contrary, Books category providing the lowest growth of -50.76% that equals to 4.2 Millions lost.
 
+>### Case–7
+> From October to December 2022, The Campaign Team has been running a campaign every Saturday and Sunday. They want to assess whether the campaign has enough impact on increasing sales (before_discount). Please help to display data: Average daily weekend sales (Saturday and Sunday) vs. average daily sales weekdays (Monday-Friday) per month. Is there an increase in sales in each of these months?
+
+```Sh
+data16 = pd.DataFrame(df[(df['is_valid']==1) \
+    & (df['day'].isin(['Saturday','Sunday']))\
+    & (df['order_date'] >= '2022-01-01') & (df['order_date'] <= '2022-12-31')]\
+    .groupby(by=["month_num","month"])["before_discount"].mean()\
+    .round()\
+    .sort_values(ascending=False)\
+    .reset_index(name='avg_profit_weekend’))
+data16
+data17 = pd.DataFrame(df[(df['is_valid']==1) \
+    & (df['day'].isin(['Monday','Tuesday','Wednesday','Thusday','Friday']))\
+    & (df['order_date'] >= '2022-01-01') & (df['order_date'] <= '2022-12-31')]\
+    .groupby(by=["month_num","month"])["before_discount"].mean()\
+    .sort_values(ascending=False)\
+    .round()\
+    .reset_index(name='avg_profit_weekdays'))
+data17
+data18 = data16.merge(data17, left_on = 'month', right_on = 'month')
+    data18.sort_values(by='month_num_x',ascending=True, inplace=True)
+    data18 = data18[["month","avg_profit_weekend","avg_profit_weekdays"]]
+data18
+```
+The solution provides the output:
+
+![](pict11.png)
+
+
+>### Case–8
+> Given the same condition above, please provide Average daily sales weekends (Saturday and Sunday) vs. average daily sales weekdays (Monday-Friday) for the entire 3 months.
