@@ -133,8 +133,7 @@ Based on the result, the TOP 5 Products from the Mobiles & Tablets Category duri
     #Filtering Data with is_valid=1
     df[(df['is_valid']==1) &\
     #Filtering data for transaction during 2021
-    ((df['order_date'] >= '2021-01-01') & 
-    (df['order_date'] <= '2021-12-31'))]\
+    ((df['order_date'] >= '2021-01-01') & (df['order_date'] <= '2021-12-31'))]\
     #grouping the data
     .groupby(by=["category"])["qty_ordered"]\
     #Summing the quantity
@@ -150,8 +149,7 @@ data2
     #Filtering Data with is_valid=1
     df[(df['is_valid']==1) &\
     #Filtering data for transaction during 2022
-    ((df['order_date'] >= '2022-01-01') & 
-    (df['order_date'] <= '2022-12-31'))]\
+    ((df['order_date'] >= '2022-01-01') & (df['order_date'] <= '2022-12-31'))]\
     #grouping data
     .groupby(by=["category"])["qty_ordered"]\
     #summing the data
@@ -167,15 +165,45 @@ data4 = pd.merge(data2,
     left_on='category',
     right_on='category’)
     data4
-    #Growth = Last Year – Previous 
-    Year
-    data4['qty_growth'] = 
-    data4['qty_2022'] - data4['qty_2021']
+    #Growth = Last Year – Previous Year
+    data4['qty_growth'] = data4['qty_2022'] - data4['qty_2021']
 data4
 ```
+
 ![](pict06.png)
 
 The above syntax results the data of 15 Product categories in which some of them experienced decrement in Sales Quantity, while others experienced the other direction. Based on the result, Soghaat experienced the biggest decrement (most negative growth) with -5032 Sales Quantity, while the Superstore experienced the biggest increment (most positive growth) with 22631 Sales Quantity.
 
 >### Case-3
 > If there is indeed a decrease in the quantity of sales in the Beauty & Grooming category, the Team asked for assistance in providing data on the TOP 20 product names that have experienced the highest decline in 2022 when compared to 2021. We will use this as material for discussion at the next meeting.
+
+```Sh
+data5 = pd.DataFrame(\
+    df[(df['is_valid']==1) &\
+    (df['category']=='Beauty & Grooming') &\
+    ((df['order_date'] >= '2021-01-01') & (df['order_date'] <= '2021-12-31'))]\
+    groupby(by=["sku_name"])["qty_ordered"]\
+    sum()\
+    sort_values(ascending=False)\
+    reset_index(name='qty_bg_2021'))
+data5
+data6 = pd.DataFrame(\
+    df[(df['is_valid']==1) &\
+    (df['category']=='Beauty & Grooming') &\
+    ((df['order_date'] >= '2022-01-01') & (df['order_date'] <= '2022-12-31'))]\
+    groupby(by=["sku_name"])["qty_ordered"]\
+    sum()\
+    sort_values(ascending=False)\
+    reset_index(name='qty_bg_2022'))
+data6
+data7 = data5.merge(data6, left_on = 'sku_name', right_on = 'sku_name')
+    data7['qty_bg_growth']=data7['qty_bg_2022']- data7['qty_bg_2021']
+    data7.sort_values(by=['qty_bg_growth'],ascending=True, inplace=True)
+    data7 = data7.head(20)
+data7
+```
+
+![](pict07.png)
+
+The above solution results the data of 20 Product name based on Category of Beauty and Grooming. All of products in the category experienced decrement in Sales Quantity. Based on the result, kcc_krone deal experienced the biggest decrement with -1135 Sales Quantity, followed by kcc_glamour deal with -360, and kcc_Buy 2 Frey Air Freshener* with -266 in the third place. The others are depicted in the table.
+
