@@ -247,7 +247,9 @@ The above solution create a file name audience_list.csv.
     }
 pd.DataFrame(data=data12, index=[0]
 ```
+
 ![](pict08.png)
+
 Based on the result, the company managed to yield around 5.15 Billion of profit in 2022 indicating a significant growth of around 2.1 Billion when compared to the previous year with 3.04 Billion. This equivalent of 69.27% growth YoY
 
 >### Case–6
