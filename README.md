@@ -332,6 +332,17 @@ The solution provides the output:
 
 ![](pict11.png)
 
+Plotting the above result into a chart, will provide us a better sight of the monthly comparison.
+
+```Sh
+data18.plot(x='month',
+    y=['avg_profit_weekend','avg_profit_weekdays'],  kind='bar', grid = True,
+    xlabel = 'Category',  ylabel = 'Total',  figsize=(12,7),
+    rot = 90,  table = False,
+    secondary_y = False)
+```
+
+![](pict11.png)
 
 >### Case–8
 > Given the same condition above, please provide Average daily sales weekends (Saturday and Sunday) vs. average daily sales weekdays (Monday-Friday) for the entire 3 months.
