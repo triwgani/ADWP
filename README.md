@@ -473,7 +473,6 @@ In conclusion, based on Cases provided ( Case 1 to Case 10), we can utilize Pyth
 2. Full stack Intensive Bootcamp for Data Analyst by MySkill.id (Python Part 1 to 3)
 3. https://www.kaggle.com/datasets/zusmani/pakistans-largest-ecommerce-dataset
 
- ## Acknowledgement
- [Azka Nur Afifah](https://www.linkedin.com/in/azkanuraf/), [Wijaya Putra](https://www.linkedin.com/in/wijaya-putra-0780a3135/), [Achmad Nafila Rozie](https://www.linkedin.com/in/achmadrozie/), [Rizky 
- Teguh Kurniawan](https://www.linkedin.com/in/rizkitk/), and team from [My Skill.id](https://myskill.id).
+## Acknowledgement
+[Azka Nur Afifah](https://www.linkedin.com/in/azkanuraf/), [Wijaya Putra](https://www.linkedin.com/in/wijaya-putra-0780a3135/), [Achmad Nafila Rozie](https://www.linkedin.com/in/achmadrozie/), [Rizky Teguh Kurniawan](https://www.linkedin.com/in/rizkitk/), and team from [My Skill.id](https://myskill.id).
  
